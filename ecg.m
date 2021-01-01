@@ -1,25 +1,20 @@
-%to plot the ECG signal from the sample
-sig=load('ecg3.txt');
-plot(sig)
+% plot the ECG signal from the sample
+signal=load('ecg.txt');
+plot(signal)
 xlabel('Samples');
 ylabel('Electrical activity');
-title('ECG signal sampled at 100Hz')
-hold on 
-plot(sig,'ro')
-%program to determine the BPM of an ECG signal 
-%count of the dominent peaks in the signal(these corresponds to heart beats)
-beat_count=0;
-%peaks are defined to be samples greater  than their two nearest neighbours
-for k=2:length(sig)-1
-    if(sig(k)>sig(k-1) && sig(k)>sig(k+1) && sig(k) > 1)
-        k
-        disp('Prominent peak found');
-        beat_count=beat_count+1;
+title('ECG signal (100Hz)')
+plot(signal)
+% calculate BPM of an ECG signal
+beats=0; % count of the dominent peaks (samples greater than their two nearest neighbours)
+for k=2:length(signal)-1
+    if(signal(k)>signal(k-1) && signal(k)>signal(k+1) && signal(k) > 1)
+        beats=beats+1;
     end
 end
 %divide the beats counted by the signal duration (in minutes)
 fs=100;
-N=length(sig);
-duration_in_seconds=N/fs;
-duration_in_minutes=duration_in_seconds/60;
-BPM=beat_count/duration_in_minutes 
+time_in_sec=length(signal)/fs;
+time_in_min=time_in_sec/60;
+BPM=beats/time_in_min;
+printf('BPM is  %d\n', BPM)
