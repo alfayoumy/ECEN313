@@ -1,9 +1,10 @@
 clear all; clc;
-[y,Fs]=audioread('tone.wav'); %read file
+[y,Fs]=audioread('tone.wav'); %read file containing 1 piano note between C4 and C5
 X=fft(y); %fast fourier transform 
 X=abs(X); %absolute of X
 [y1,x1]=max(X); %maximum values of X
 key=floor(log2(x1/220)*12) %reverse f in piano_generate.m
+disp('The piano note is: ')
 if key==3
     disp('C4')
   elseif key==4
