@@ -1,6 +1,7 @@
 clear all; clc;
 fs=8000; %given frequency
-word=input('','s'); %input notes separated by space, i.e.: 'C4 Db4 C4 E4'
+prompt = 'Type piano note(s) separated by space (i.e.: C4 Db4 E4 C5): ';
+word=input(prompt, 's'); %input notes
 ts=1/fs
 t=0:ts:1
 y=0
