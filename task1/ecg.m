@@ -1,12 +1,12 @@
 % plot the ECG signal from the sample
 signal=load('ecg.txt');
 plot(signal)
-xlabel('Samples');
-ylabel('Electrical activity');
-title('ECG signal (100Hz)')
-plot(signal)
+xlabel('Samples', 'FontSize', 15)
+ylabel('Signal Amplitude', 'FontSize', 15)
+title('ECG signal (@ 100Hz)', 'FontSize', 15)
 % calculate BPM of an ECG signal
-beats=0; % count of the dominent peaks (samples greater than their two nearest neighbours)
+% count of samples greater than their two nearest neighbours
+beats=0; 
 for k=2:length(signal)-1
     if(signal(k)>signal(k-1) && signal(k)>signal(k+1) && signal(k) > 1)
         beats=beats+1;
