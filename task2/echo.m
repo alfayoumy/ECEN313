@@ -1,46 +1,48 @@
-clear all;  
+clear all;
 % Audio Input  
  [x,Fs] = audioread('main_audio.wav');  
- sound(x,Fs)
+ sound(x,Fs) % Play original sound
  
-delay = 0.5; % 0.5s delay  
-alpha = 0.65; % echo strength  
+delay = 2; % 2s delay
+alpha = 0.7; % echo strength = 0.7
 D = delay*Fs;
 
-%Echo Signal
-y = zeros(size(x));  
-y(1:D) = x(1:D);  
+% Echoed Signal
+y = zeros(size(x));
+y(1:D) = x(1:D);
    
- for i=D+1:length(x)  
+ for i=D+1:length(x)
    y(i) = x(i) + alpha*x(i-D);
  end
-%Echoed sound
-sound(y,Fs); 
-audiowrite('echoed.wav',y,Fs);
 
-%Regenerated Signal
+% Echoed audio signal
+ sound(y,Fs); % Play echoed sound
+ audiowrite('Echoed.wav',y,Fs) % Save echoed audio
+
 res = zeros(size(y));
 res(1:D) = y(1:D);
 
-%Echo cancellation
+% Echo removal
  for i=D+1:length(y)  
    res(i) = y(i) - alpha*x(i-D);
  end
-%Regenerated sound from echoed sound
-sound(res,Fs);
-audiowrite('regenerated.wav',res,Fs)
 
-%Plot Original Signal
+% Regenerating Original Sound from Echoed Sound
+sound(res,Fs); % Play regenerated audio
+audiowrite('Regenerated.wav',res,Fs) % Save regenerated audio
+
+%Plots
+%Original Signal
 subplot(3,1,1); plot(x);
 title('Original Signal');
 xlabel('Time'); ylabel('Signal Value');
 
-%Plot Echoed Signal
+%Echoed Signal
 subplot(3,1,2); plot(y);
 title('Echoed Signal');
 xlabel('Time'); ylabel('Signal Value');
 
-%Plot Regenerated Signal
+%Regenerated Signal
 subplot(3,1,3); plot(res);
 title('Regenerated Signal');
 xlabel('Time'); ylabel('Signal Value');
